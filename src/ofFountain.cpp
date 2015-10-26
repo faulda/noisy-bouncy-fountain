@@ -66,6 +66,11 @@ void ofFountain::update()
     }
 }
 
+// Modified version of a ofxBox2dBaseShape.h function that uses a normal pointer
+bool shouldRemoveOffScreen(ofxBox2dBaseShape* shape) {
+    return !ofRectangle(0, 0, ofGetWidth(), ofGetHeight()).inside(shape->getPosition());
+}
+
 // Cleans up extra circles that are off the screen by deleting them and
 // removing them from the vector. Makes 1 pass over the vector, deleting
 // unneeded items and shifting the rest over towards the beginning, resizing
@@ -75,7 +80,9 @@ void ofFountain::cleanupExtraCircles()
     int last = 0;
     for(int i=0; i<circles.size(); ++i, ++last)
     {
-        while(i < circles.size() && ofxBox2dBaseShape::shouldRemoveOffScreen(circles[i]))
+        // Create a shared_ptr that doesn't delete the Circle, since the ofxBox2dBaseShape
+        // function shouldRemoveOffScreen requires one.
+        while(i < circles.size() && shouldRemoveOffScreen(circles[i]))
         {
             // While at a circle we need to remove, delete it and move on
             circles[i]->destroy();

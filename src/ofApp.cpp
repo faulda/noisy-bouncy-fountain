@@ -144,6 +144,7 @@ void ofApp::update()
 //--------------------------------------------------------------
 void ofApp::draw()
 {
+    ofSetColor(ofColor::white);
     box2d.drawGround();
     //fftLive.draw();
 
@@ -155,6 +156,21 @@ void ofApp::draw()
     for(ofFountain *f : fountains)
     {
         f->draw();
+    }
+
+    ofSetColor(ofColor::black);
+    // Draw instructions for use
+    if(useMic)
+    {
+        ofDrawBitmapString("Microphone Mode (press m to toggle)", 5, 20);
+        ofDrawBitmapString("The height of the fountains will change", 5, 40);
+        ofDrawBitmapString("with the volume level of microphone input.", 5, 50);
+    }
+    else
+    {
+        ofDrawBitmapString("Manual Mode (press m to toggle)", 5, 20);
+        ofDrawBitmapString("Use the up and down arrow keys to", 5, 40);
+        ofDrawBitmapString("change the height of the fountains.", 5, 50);
     }
 }
 
