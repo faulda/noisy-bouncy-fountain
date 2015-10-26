@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <iostream>
 
-ofFountain::ofFountain() : ofFountain(NULL, 0, 0, 0, 0) { }
+ofFountain::ofFountain() { }
 
 ofFountain::ofFountain(ofxBox2d *box2d, float x, float y, float circlesPerFrame, float frameRate)
 {
